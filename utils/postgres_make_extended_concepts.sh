@@ -5,7 +5,7 @@
 # string replacements are necessary for some queries
 export REGEX_DATETIME_DIFF="s/DATETIME_DIFF\((.+?),\s?(.+?),\s?(DAY|MINUTE|SECOND|HOUR|YEAR)\)/DATETIME_DIFF(\1, \2, '\3')/g"
 export REGEX_SCHEMA='s/`physionet-data.(mimiciii_clinical|mimiciii_derived|mimiciii_notes).(.+?)`/\2/g'
-export CONNSTR='-d mimic'
+export CONNSTR='-h localhost -p 5434 -U postgres -d mimic'
 
 # this is set as the search_path variable for psql
 # a search path of "public,mimiciii" will search both public and mimiciii
@@ -21,7 +21,7 @@ echo '==='
 echo ''
 
 echo 'Directory 5 of 9: fluid_balance'
-{ echo "${PSQL_PREAMBLE}; DROP TABLE IF EXISTS colloid_bolus; CREATE TABLE colloid_bolus AS "; cat $MIMIC_CODE_DIR/concepts/fluid_balance/colloid_bolus.sql; } | sed -r -e "${REGEX_DATETIME_DIFF}" | sed -r -e "${REGEX_SCHEMA}" | psql ${CONNSTR}
-{ echo "${PSQL_PREAMBLE}; DROP TABLE IF EXISTS crystalloid_bolus; CREATE TABLE crystalloid_bolus AS "; cat $MIMIC_CODE_DIR/concepts/fluid_balance/crystalloid_bolus.sql; } | sed -r -e "${REGEX_DATETIME_DIFF}" | sed -r -e "${REGEX_SCHEMA}" | psql ${CONNSTR}
+{ echo "${PSQL_PREAMBLE}; DROP TABLE IF EXISTS colloid_bolus; CREATE TABLE colloid_bolus AS "; cat /home/yram0006/phd/chapter_1/workspace/mimic-code/mimic-iii/concepts/fluid_balance/colloid_bolus.sql; } | sed -r -e "${REGEX_DATETIME_DIFF}" | sed -r -e "${REGEX_SCHEMA}" | psql ${CONNSTR}
+{ echo "${PSQL_PREAMBLE}; DROP TABLE IF EXISTS crystalloid_bolus; CREATE TABLE crystalloid_bolus AS "; cat /home/yram0006/phd/chapter_1/workspace/mimic-code/mimic-iii/concepts/fluid_balance/crystalloid_bolus.sql; } | sed -r -e "${REGEX_DATETIME_DIFF}" | sed -r -e "${REGEX_SCHEMA}" | psql ${CONNSTR}
 
 echo 'Finished creating tables.'

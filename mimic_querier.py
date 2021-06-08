@@ -54,7 +54,7 @@ class MIMIC_Querier():
         self.close()
         self.connection = psycopg2.connect(**self.query_args)
         self.cursor     = self.connection.cursor()
-        self.cursor.execute('SET search_path TO %s' % self.schema_name)
+#       self.cursor.execute('SET search_path TO %s' % self.schema_name)
         self.connected = True
 
     def query(self, query_string=None, query_file=None, extra_template_vars={}):
@@ -91,7 +91,7 @@ class MIMIC_Querier():
         self.close()
         self.connection = psycopg2.connect(**self.query_args)
         self.cursor     = self.connection.cursor()
-        self.cursor.execute('SET search_path TO %s' % self.schema_name)
+#         self.cursor.execute('SET search_path TO %s' % self.schema_name)
         self.connected = True
 
     def query(self, query_string=None, query_file=None, extra_template_vars={}):

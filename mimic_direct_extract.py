@@ -13,7 +13,7 @@ import numpy.random as npr
 
 import spacy
 # TODO(mmd): Upgrade to python 3 and use scispacy (requires python 3.6)
-import scispacy
+# import scispacy
 
 import matplotlib
 matplotlib.use('Agg')
@@ -806,6 +806,7 @@ if __name__ == '__main__':
     if args['psql_host'] is not None: query_args['host'] = args['psql_host']
     if args['psql_user'] is not None: query_args['user'] = args['psql_user']
     if args['psql_password'] is not None: query_args['password'] = args['psql_password']
+    query_args['port'] = 5434
 
     querier = MIMIC_Querier(query_args=query_args, schema_name=schema_name)
 
@@ -877,7 +878,7 @@ if __name__ == '__main__':
         cur = con.cursor()
 
         print("  starting db query with %d subjects..." % (len(icuids_to_keep)))
-        cur.execute('SET search_path to ' + schema_name)
+#         cur.execute('SET search_path to ' + schema_name)
         query = \
         """
         select c.subject_id, i.hadm_id, c.icustay_id, c.charttime, c.itemid, c.value, valueuom
